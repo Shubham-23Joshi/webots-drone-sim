@@ -1,0 +1,77 @@
+#VRML_SIM R2023b utf8
+# Simple football stadium for Webots
+
+PROTO FootballStadium [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 1 0 0
+  field SFFloat scale 1
+] {
+  Transform {
+    translation IS translation
+    rotation IS rotation
+    scale IS scale
+    children [
+      # Grass field
+      Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 0.1 0.6 0.1
+          }
+        }
+        geometry Box {
+          size 105 0.1 68
+        }
+      }
+
+      # White border + mid line
+      Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 1 1 1
+          }
+        }
+        geometry IndexedLineSet {
+          coord Coordinate {
+            point [
+              -52.5 0.051 -34,  52.5 0.051 -34,
+               52.5 0.051  34, -52.5 0.051  34, -52.5 0.051 -34,
+               0 0.051 -34, 0 0.051 34
+            ]
+          }
+          coordIndex [0,1,2,3,4,-1,5,6,-1]
+        }
+      }
+
+      # Simple gray stands around
+      DEF STAND Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 0.5 0.5 0.5
+          }
+        }
+        geometry Box {
+          size 110 5 10
+        }
+      }
+
+      Transform {
+        translation 0 2.5 -39
+        children [ USE STAND ]
+      }
+      Transform {
+        translation 0 2.5 39
+        children [ USE STAND ]
+      }
+      Transform {
+        translation -57.5 2.5 0
+        rotation 0 1 0 1.5708
+        children [ USE STAND ]
+      }
+      Transform {
+        translation 57.5 2.5 0
+        rotation 0 1 0 1.5708
+        children [ USE STAND ]
+      }
+    ]
+  }
+}
