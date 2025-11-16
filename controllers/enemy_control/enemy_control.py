@@ -157,7 +157,7 @@ class Mavic (Robot):
         # Specify the patrol coordinates
         waypoints = [[0, -15]]
         # target altitude of the robot in meters
-        self.target_altitude = 6
+        self.target_altitude = 20
 
         while self.step(self.time_step) != -1:
 

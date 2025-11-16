@@ -60,7 +60,7 @@ DEF DRONE2 Mavic2Pro {
     # Attach a small sagging “net/rope” under drone1 using BallJoint chain
     BallJoint {
             endPoint Solid {
-              translation 0 0 -0.2
+              translation -0 0 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -70,7 +70,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.4 0 -0.2
+              translation -0.4 0 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -80,7 +80,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.8 0 -0.2
+              translation -0.8 0 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -90,7 +90,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.2 0 -0.2
+              translation -1.2 0 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -100,7 +100,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.6 0 -0.2
+              translation -1.6 0 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -110,7 +110,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 2 0 -0.2
+              translation -2 0 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -130,7 +130,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.4 0.4 -0.2
+              translation -0.4 0.4 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -140,7 +140,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.8 0.4 -0.2
+              translation -0.8 0.4 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -150,7 +150,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.2 0.4 -0.2
+              translation -1.2 0.4 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -160,7 +160,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.6 0.4 -0.2
+              translation -1.6 0.4 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -170,7 +170,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 2 0.4 -0.2
+              translation -2 0.4 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -190,7 +190,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.4 0.8 -0.2
+              translation -0.4 0.8 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -200,7 +200,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.8 0.8 -0.2
+              translation -0.8 0.8 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -210,7 +210,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.2 0.8 -0.2
+              translation -1.2 0.8 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -220,7 +220,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.6 0.8 -0.2
+              translation -1.6 0.8 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -230,7 +230,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 2 0.8 -0.2
+              translation -2 0.8 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -250,7 +250,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             eDrone ndPoint Solid {
-              translation 0.4 1.2 -0.2
+              translation -0.4 1.2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -260,7 +260,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.8 1.2 -0.2
+              translation -0.8 1.2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -270,7 +270,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.2 1.2 -0.2
+              translation -1.2 1.2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -280,7 +280,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.6 1.2 -0.2
+              translation -1.6 1.2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -290,7 +290,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 2 1.2 -0.2
+              translation -2 1.2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -310,7 +310,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.4 1.6 -0.2
+              translation -0.4 1.6 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -320,7 +320,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.8 1.6 -0.2
+              translation -0.8 1.6 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -330,7 +330,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.2 1.6 -0.2
+              translation -1.2 1.6 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -340,7 +340,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.6 1.6 -0.2
+              translation -1.6 1.6 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -350,7 +350,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 2 1.6 -0.2
+              translation -2 1.6 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -370,7 +370,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.4 2 -0.2
+              translation -0.4 2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -380,7 +380,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 0.8 2 -0.2
+              translation -0.8 2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -390,7 +390,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.2 2 -0.2
+              translation -1.2 2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -400,7 +400,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 1.6 2 -0.2
+              translation -1.6 2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }
@@ -410,7 +410,7 @@ DEF DRONE2 Mavic2Pro {
           }
     BallJoint {
             endPoint Solid {
-              translation 2 2 -0.2
+              translation -2 2 -0.2
               children [
                 Shape {
                   geometry Sphere { radius 0.03 }

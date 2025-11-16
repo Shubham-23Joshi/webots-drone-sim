@@ -59,7 +59,7 @@ class Mavic (Robot):
     K_PITCH_P = 52.0          # P constant of the pitch PID.
 
     MAX_YAW_DISTURBANCE = 2.4
-    MAX_PITCH_DISTURBANCE = -3.6
+    MAX_PITCH_DISTURBANCE = -5
     # Precision between the target position and the robot position in meters
     target_precision = 0.3
 
@@ -215,7 +215,7 @@ class Mavic (Robot):
         print(f"Drone {drone_id} waypoints: {waypoints}")
 
         # target altitude of the robot in meters
-        self.target_altitude = 5
+        self.target_altitude = 20
 
         while self.step(self.time_step) != -1:
 
