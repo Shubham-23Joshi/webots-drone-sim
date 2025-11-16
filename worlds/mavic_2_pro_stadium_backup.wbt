@@ -1,0 +1,123 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/SandyGround.proto"
+EXTERNPROTO "protos/RobotstadiumSoccerField.proto"
+
+
+WorldInfo {
+  info [
+    "This demonstration shows a DJI Mavic 2 PRO flying over a rural area."
+    "After the drone has taken off, you can control it with the keyboard of your computer."
+  ]
+  title "DJI Mavic 2 PRO demo"
+  basicTimeStep 8
+  defaultDamping Damping {
+    linear 0.5
+    angular 0.5
+  }
+}
+Viewpoint {
+  orientation -0.03132509357312057 -0.004229724205027985 0.9995002991224087 2.901671340011777
+  position 3.392036511082617 -0.9278446049316036 0.7513423909480075
+  near 0.2
+  follow "Mavic 2 PRO"
+  followSmoothness 0.2
+}
+TexturedBackground {
+  luminosity 3
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 400 400
+  tileSize 6 6
+  appearance SandyGround {
+  }
+}
+RobotstadiumSoccerField {
+  translation 0 0 0.005
+  rotation 0 0 1 0
+  scale 15 15 15
+} 
+Mavic2Pro {
+  translation 0 0 0.05
+  rotation 0 0 1 3.141590777218456
+  name "drone1"
+  controller "swarm_control"
+  controllerArgs ["1"]
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -1 -1 0.05
+  rotation 0 0 1 3.141590777218456
+  name "drone2"
+  controller "swarm_control"
+  controllerArgs ["2"]
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -2 0 0.05
+  rotation 0 0 1 3.141590777218456
+  name "drone3"
+  controller "swarm_control"
+  controllerArgs ["3"]
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+
+Mavic2Pro {
+  translation -1 1 0.05
+  rotation 0 0 1 3.141590777218456
+  name "drone4"
+  controller "swarm_control"
+  controllerArgs ["4"]
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+
+Mavic2Pro {
+  translation 0 -20 0.05
+  rotation 0 0 1 3.141590777218456
+  name "target"
+  controller "enemy_control"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+
+Supervisor {
+  name "NetSupervisor"
+  controller "net_supervisor"
+}
+
+

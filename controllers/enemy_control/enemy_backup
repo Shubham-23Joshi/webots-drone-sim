@@ -40,11 +40,11 @@ class Mavic (Robot):
     K_VERTICAL_THRUST = 68.5  # with this thrust, the drone lifts.
     # Vertical offset where the robot actually targets to stabilize itself.
     K_VERTICAL_OFFSET = 0.6
-    K_VERTICAL_P = 3.4 #3.0        # P constant of the vertical PID.
-    K_ROLL_P = 60.0           # P constant of the roll PID.
-    K_PITCH_P = 38.0          # P constant of the pitch PID.
+    K_VERTICAL_P = 3.2 #3.0        # P constant of the vertical PID.
+    K_ROLL_P = 50.0           # P constant of the roll PID.
+    K_PITCH_P = 35.0          # P constant of the pitch PID.
 
-    MAX_YAW_DISTURBANCE = 1.8
+    MAX_YAW_DISTURBANCE = 1.6
     MAX_PITCH_DISTURBANCE = -3.0
     # Precision between the target position and the robot position in meters
     target_precision = 0.5
@@ -155,7 +155,7 @@ class Mavic (Robot):
         yaw_disturbance = 0
 
         # Specify the patrol coordinates
-        waypoints = [[0, -15]]
+        waypoints = [[0, -13]]
         # target altitude of the robot in meters
         self.target_altitude = 6
 

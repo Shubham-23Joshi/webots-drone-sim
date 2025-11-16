@@ -3,7 +3,7 @@
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+EXTERNPROTO "protos/dji/mavic/protos/Mavic2Pro.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/SandyGround.proto"
 EXTERNPROTO "protos/RobotstadiumSoccerField.proto"
 
@@ -41,10 +41,388 @@ Floor {
 RobotstadiumSoccerField {
   translation 0 0 0.005
   rotation 0 0 1 0
-  scale 15 15 15
+  scale 5 5 5
 } 
-Mavic2Pro {
-  translation 0 0 0.05
+DEF DRONE2 Mavic2Pro {
+  translation -1.5 23.5 0.05
+  rotation 0 0 1 3.141590777218456
+  name "drone2"
+  controller "swarm_control"
+  controllerArgs ["2"]
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+  bodySlot [
+    # Attach a small sagging “net/rope” under drone1 using BallJoint chain
+    BallJoint {
+            endPoint Solid {
+              translation 0 0 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.4 0 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.8 0 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.2 0 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.6 0 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 2 0 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0 0.4 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.4 0.4 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.8 0.4 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.2 0.4 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.6 0.4 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 2 0.4 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0 0.8 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.4 0.8 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.8 0.8 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.2 0.8 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.6 0.8 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 2 0.8 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0 1.2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            eDrone ndPoint Solid {
+              translation 0.4 1.2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.8 1.2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.2 1.2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.6 1.2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 2 1.2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0 1.6 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.4 1.6 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.8 1.6 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.2 1.6 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.6 1.6 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 2 1.6 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0 2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.4 2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 0.8 2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.2 2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 1.6 2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+    BallJoint {
+            endPoint Solid {
+              translation 2 2 -0.2
+              children [
+                Shape {
+                  geometry Sphere { radius 0.03 }
+                }
+              ]
+            }
+          }
+  ]
+
+}
+DEF DRONE1 Mavic2Pro {
+  translation 0 24 0.05
   rotation 0 0 1 3.141590777218456
   name "drone1"
   controller "swarm_control"
@@ -57,22 +435,8 @@ Mavic2Pro {
     }
   ]
 }
-Mavic2Pro {
-  translation -1 -1 0.05
-  rotation 0 0 1 3.141590777218456
-  name "drone2"
-  controller "swarm_control"
-  controllerArgs ["2"]
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -2 0 0.05
+DEF DRONE3 Mavic2Pro {
+  translation -1.5 24.5 0.05
   rotation 0 0 1 3.141590777218456
   name "drone3"
   controller "swarm_control"
@@ -86,8 +450,8 @@ Mavic2Pro {
   ]
 }
 
-Mavic2Pro {
-  translation -1 1 0.05
+DEF DRONE4 Mavic2Pro {
+  translation -0.5 23.5 0.05
   rotation 0 0 1 3.141590777218456
   name "drone4"
   controller "swarm_control"
@@ -101,8 +465,23 @@ Mavic2Pro {
   ]
 }
 
-Mavic2Pro {
-  translation 0 -30 0.05
+DEF DRONE5 Mavic2Pro {
+  translation -0.5 24.5 0.05
+  rotation 0 0 1 3.141590777218456
+  name "drone5"
+  controller "swarm_control"
+  controllerArgs ["5"]
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+
+DEF DRONE_ENEMY Mavic2Pro {
+  translation 0 -24 0.05
   rotation 0 0 1 3.141590777218456
   name "target"
   controller "enemy_control"
@@ -114,4 +493,10 @@ Mavic2Pro {
     }
   ]
 }
+
+Supervisor {
+  name "NetSupervisor"
+  controller "net_supervisor"
+}
+
 

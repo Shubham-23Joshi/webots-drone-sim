@@ -24,11 +24,25 @@ try:
 except ImportError:
     sys.exit("Warning: 'numpy' module not found.")
 
-# Get drone ID (optional)
+# Get drone ID
 if len(sys.argv) > 1:
     drone_id = int(sys.argv[1])
 else:
     drone_id = 0
+
+print(f"Drone {drone_id} started")
+
+FORMATION_OFFSET = [
+    [0, 0],     # leader
+    [-1, 1],     # right wing
+    [-2, 0],    # rear
+    [-1, -1],     # left wing
+]
+
+offset = FORMATION_OFFSET[drone_id % len(FORMATION_OFFSET)]
+target_x, target_y = offset
+
+CENTER_WAYPOINTS = [[0, -10]]
 
 
 def clamp(value, value_min, value_max):
@@ -40,14 +54,14 @@ class Mavic (Robot):
     K_VERTICAL_THRUST = 68.5  # with this thrust, the drone lifts.
     # Vertical offset where the robot actually targets to stabilize itself.
     K_VERTICAL_OFFSET = 0.6
-    K_VERTICAL_P = 3.4 #3.0        # P constant of the vertical PID.
-    K_ROLL_P = 60.0           # P constant of the roll PID.
-    K_PITCH_P = 38.0          # P constant of the pitch PID.
+    K_VERTICAL_P = 4.0 #3.0        # P constant of the vertical PID.
+    K_ROLL_P = 85.0           # P constant of the roll PID.
+    K_PITCH_P = 52.0          # P constant of the pitch PID.
 
-    MAX_YAW_DISTURBANCE = 1.8
-    MAX_PITCH_DISTURBANCE = -3.0
+    MAX_YAW_DISTURBANCE = 2.4
+    MAX_PITCH_DISTURBANCE = -3.6
     # Precision between the target position and the robot position in meters
-    target_precision = 0.5
+    target_precision = 0.3
 
     def __init__(self):
         Robot.__init__(self)
@@ -63,6 +77,17 @@ class Mavic (Robot):
         self.gps.enable(self.time_step)
         self.gyro = self.getDevice("gyro")
         self.gyro.enable(self.time_step)
+
+        # Receiver for enemy position broadcasts (emitter will be used by enemy)
+        try:
+            # swarm drones only need to receive enemy broadcasts
+            self.receiver = self.getDevice("receiver")
+            self.receiver.enable(self.time_step)
+            self.emitter = None
+        except Exception:
+            # If device missing, disable comms gracefully.
+            self.receiver = None
+            self.emitter = None
 
         self.front_left_motor = self.getDevice("front left propeller")
         self.front_right_motor = self.getDevice("front right propeller")
@@ -80,13 +105,9 @@ class Mavic (Robot):
         self.target_position = [0, 0, 0]
         self.target_index = 0
         self.target_altitude = 0
-        # Emitter to broadcast enemy position to swarm
-        try:
-            self.emitter = self.getDevice("emitter")
-        except Exception:
-            self.emitter = None
-        self.emission_interval = 0.2
-        self.last_emission_time = 0.0
+        # enemies: id -> (x, y, timestamp)
+        self.enemies = {}
+        self.enemy_timeout = 5.0  # seconds to consider an enemy position fresh
 
     def set_position(self, pos):
         """
@@ -95,6 +116,40 @@ class Mavic (Robot):
             pos (list): [X,Y,Z,yaw,pitch,roll] current absolute position and angles
         """
         self.current_pose = pos
+
+    def _broadcast_position(self, now):
+        # Swarm no longer broadcasts its own position for consensus.
+        return
+
+    def _process_incoming(self, now):
+        if not self.receiver:
+            return
+        while self.receiver.getQueueLength() > 0:
+            data = self.receiver.getData()
+            try:
+                s = data.decode("utf-8")
+                parts = s.strip().split(",")
+                # Expect messages formatted as: <id>,<x>,<y>,<z>
+                if len(parts) >= 4:
+                    nid = int(parts[0])
+                    nx = float(parts[1])
+                    ny = float(parts[2])
+                    nz = float(parts[3])
+                    self.enemies[nid] = (nx, ny, nz, now)
+                elif len(parts) >= 3:
+                    # backward compatible: no z provided
+                    nid = int(parts[0])
+                    nx = float(parts[1])
+                    ny = float(parts[2])
+                    nz = None
+                    self.enemies[nid] = (nx, ny, nz, now)
+            except Exception:
+                pass
+            self.receiver.nextPacket()
+
+    def _run_consensus(self, now):
+        # Consensus removed: swarm no longer computes a centroid of neighbors.
+        return
 
     def move_to_target(self, waypoints, verbose_movement=False, verbose_target=False):
         """
@@ -107,6 +162,7 @@ class Mavic (Robot):
             yaw_disturbance (float): yaw disturbance (negative value to go on the right)
             pitch_disturbance (float): pitch disturbance (negative value to go forward)
         """
+        # If enemies detected, move_to_target will be called with enemy waypoint from run()
 
         if self.target_position[0:2] == [0, 0]:  # Initialization
             self.target_position[0:2] = waypoints[0]
@@ -155,9 +211,11 @@ class Mavic (Robot):
         yaw_disturbance = 0
 
         # Specify the patrol coordinates
-        waypoints = [[0, -15]]
+        waypoints = [[x + target_x, y + target_y] for x, y in CENTER_WAYPOINTS]
+        print(f"Drone {drone_id} waypoints: {waypoints}")
+
         # target altitude of the robot in meters
-        self.target_altitude = 6
+        self.target_altitude = 5
 
         while self.step(self.time_step) != -1:
 
@@ -167,22 +225,39 @@ class Mavic (Robot):
             roll_acceleration, pitch_acceleration, _ = self.gyro.getValues()
             self.set_position([x_pos, y_pos, altitude, roll, pitch, yaw])
 
-            # broadcast our position so swarm drones can detect and chase
             now = self.getTime()
-            if self.emitter and now - self.last_emission_time >= self.emission_interval:
-                try:
-                    msg = f"{drone_id},{x_pos:.4f},{y_pos:.4f},{altitude:.4f}"
-                    self.emitter.send(msg.encode("utf-8"))
-                    self.last_emission_time = now
-                except Exception:
-                    pass
+            # process incoming enemy broadcasts
+            self._process_incoming(now)
+            # choose nearest fresh enemy (if any) and override waypoints
+            active = []
+            for nid, val in self.enemies.items():
+                # val is (ex, ey, ez, t) or (ex,ey,None,t)
+                if len(val) == 4:
+                    ex, ey, ez, t = val
+                else:
+                    # defensive: skip malformed entries
+                    continue
+                if now - t <= self.enemy_timeout:
+                    active.append((nid, ex, ey, ez))
+            if len(active) > 0:
+                # pick nearest enemy in 3D when available (fallback to 2D if ez is None)
+                def dist3(e):
+                    ex, ey, ez = e[1], e[2], e[3]
+                    dx = ex - self.current_pose[0]
+                    dy = ey - self.current_pose[1]
+                    dz = 0 if ez is None else (ez - self.current_pose[2])
+                    return dx * dx + dy * dy + dz * dz
+                nearest = min(active, key=dist3)
+                # nearest is (nid, ex, ey, ez)
+                waypoints = [[nearest[1], nearest[2]]]
+                if nearest[3] is not None:
+                    # set target altitude to the enemy altitude
+                    self.target_altitude = nearest[3]
 
-            if altitude > self.target_altitude - 1:
-                # as soon as it reach the target altitude, compute the disturbances to go to the given waypoints.
-                if self.getTime() - t1 > 0.1:
-                    yaw_disturbance, pitch_disturbance = self.move_to_target(
-                        waypoints)
-                    t1 = self.getTime()
+            # Always compute horizontal disturbances periodically so the drone can chase while changing altitude
+            if self.getTime() - t1 > 0.1:
+                yaw_disturbance, pitch_disturbance = self.move_to_target(waypoints)
+                t1 = self.getTime()
 
             roll_input = self.K_ROLL_P * clamp(roll, -1, 1) + roll_acceleration + roll_disturbance
             pitch_input = self.K_PITCH_P * clamp(pitch, -1, 1) + pitch_acceleration + pitch_disturbance

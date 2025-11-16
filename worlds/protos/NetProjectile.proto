@@ -1,0 +1,32 @@
+PROTO NetProjectile [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 0 1 0
+  field SFString name "net_projectile"
+]
+{
+  Solid {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    children [
+      Shape {
+        appearance PBRAppearance {
+          baseColor 0.9 0.9 0.9
+          roughness 1
+          metalness 0
+          transparency 0.4
+        }
+        geometry Sphere {
+          radius 0.18
+        }
+      }
+    ]
+    boundingObject Sphere {
+      radius 0.18
+    }
+    physics Physics {
+      density -1
+      mass 0.2
+    }
+  }
+}

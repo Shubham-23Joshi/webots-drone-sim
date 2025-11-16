@@ -68,15 +68,15 @@ Robot {
     DEF INERTIAL_UNIT InertialUnit {
     }
     # Added radio devices for decentralized consensus (emitter + receiver)
-+    DEF RADIO_EMITTER Emitter {
-+      name "emitter"
-+      channel 1
-+      range 100.0
-+    }
-+    DEF RADIO_RECEIVER Receiver {
-+      name "receiver"
-+      channel 1
-+    }
+    DEF RADIO_EMITTER Emitter {
+      name "emitter"
+      channel 1
+      range 800.0
+    }
+    DEF RADIO_RECEIVER Receiver {
+      name "receiver"
+      channel 1
+    }
     DEF REAR_LEFT_HP_HELIX Propeller {
       shaftAxis 0 0 1
       centerOfThrust -0.177179 0.127453 -0.0320282
